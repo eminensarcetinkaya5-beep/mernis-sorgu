@@ -1,0 +1,2 @@
+# mernis-sorgu
+sorgu awasbey
