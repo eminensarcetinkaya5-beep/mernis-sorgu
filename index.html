@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MERNİS MASTER - AwasBey</title>
+    <style>
+        body {
+            background-color: #050505;
+            font-family: 'Courier New', monospace;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            border: 2px solid #0ff;
+            padding: 30px;
+            border-radius: 10px;
+            background: rgba(0, 10, 20, 0.95);
+            box-shadow: 0 0 25px #0ff, inset 0 0 15px #0ff;
+            position: relative;
+        }
+        h1 {
+            color: #f0f;
+            text-align: center;
+            text-shadow: 0 0 10px #f0f;
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+        .creator-tag {
+            text-align: center;
+            color: #ff0;
+            font-size: 14px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 5px #ff0;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            color: #0f0;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            background: #000;
+            border: 1px solid #0f0;
+            color: #0ff;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            box-sizing: border-box;
+            outline: none;
+            box-shadow: 0 0 5px #0f0;
+        }
+        input:focus {
+            box-shadow: 0 0 15px #0f0, inset 0 0 5px #0f0;
+        }
+        button {
+            width: 100%;
+            padding: 15px;
+            background: #000;
+            color: #f0f;
+            border: 2px solid #f0f;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: 0.3s;
+            box-shadow: 0 0 10px #f0f;
+        }
+        button:hover {
+            background: #f0f;
+            color: #000;
+            box-shadow: 0 0 25px #f0f;
+        }
+        .result-area {
+            margin-top: 25px;
+            border: 1px dashed #0ff;
+            background: rgba(0, 20, 0, 0.8);
+            padding: 15px;
+            display: none;
+            box-shadow: inset 0 0 10px #0ff;
+        }
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #333;
+            padding: 8px 0;
+            font-size: 14px;
+        }
+        .data-label { color: #0ff; font-weight: bold; }
+        .data-value { color: #ff0; text-align: right; }
+        .status-bar {
+            text-align: center;
+            color: #0f0;
+            font-size: 12px;
+            margin-top: 10px;
+            animation: blink 1.5s infinite;
+        }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>MERNİS MASTER PANEL</h1>
+    <div class="creator-tag">KURUCU: AwasBey</div>
+    
+    <div class="status-bar">SUNUCU BAĞLANTISI: AKTİF // SQL SERVER: BAĞLI</div>
+
+    <div class="input-group">
+        <label>TC KİMLİK NO (11 HANE)</label>
+        <input type="text" id="tcInput" placeholder="Örn: 12345678901">
+    </div>
+    
+    <div class="input-group">
+        <label>AD SOYAD</label>
+        <input type="text" id="nameInput" placeholder="Örn: Ahmet Yılmaz">
+    </div>
+
+    <button onclick="sorgula()">VERİTABANINDAN ÇEK</button>
+
+    <div id="resultBox" class="result-area">
+        <!-- Sonuçlar buraya gelecek -->
+    </div>
+</div>
+
+<script>
+    function sorgula() {
+        const tc = document.getElementById('tcInput').value;
+        const name = document.getElementById('nameInput').value;
+        const resultBox = document.getElementById('resultBox');
+        
+        if(tc.length !== 11 || name.trim() === "") {
+            alert("TC ve Ad Soyad eksik veya hatalı!");
+            return;
+        }
+
+        resultBox.style.display = "block";
+        resultBox.innerHTML = "<div style='text-align:center; color:#0f0;'>VERİTABANI TARANIYOR...<br>ŞİFRE KIRILIYOR...</div>";
+
+        // Simüle edilmiş veri çekme (Gerçek backend'e bağlanacak kısmı)
+        setTimeout(() => {
+            // 10+ Ekstra Bilgi Detayı
+            const veriler = `
+                <div class="data-row"><span class="data-label">TC KİMLİK NO:</span> <span class="data-value">${tc}</span></div>
+                <div class="data-row"><span class="data-label">AD SOYAD:</span> <span class="data-value">${name}</span></div>
+                <div class="data-row"><span class="data-label">DOĞUM TARİHİ:</span> <span class="data-value">14/05/1992</span></div>
+                <div class="data-row"><span class="data-label">DOĞUM YERİ:</span> <span class="data-value">İstanbul / Beşiktaş</span></div>
+                <div class="data-row"><span class="data-label">CİNSİYET:</span> <span class="data-value">Erkek</span></div>
+                <div class="data-row"><span class="data-label">ANA ADI:</span> <span class="data-value">Fatma</span></div>
+                <div class="data-row"><span class="data-label">ANA T.C.:</span> <span class="data-value">98765432102</span></div>
+                <div class="data-row"><span class="data-label">BABA ADI:</span> <span class="data-value">Mehmet</span></div>
+                <div class="data-row"><span class="data-label">BABA T.C.:</span> <span class="data-value">45678901234</span></div>
+                <div class="data-row"><span class="data-label">ADRES:</span> <span class="data-value">Kadıköy Mah. 123. Sok. No:7 D:3</span></div>
+                <div class="data-row"><span class="data-label">İSKAN DURUMU:</span> <span class="data-value">İSKANLI</span></div>
+                <div class="data-row"><span class="data-label">KİMLİK SÜRESİ:</span> <span class="data-value">2028-10-15</span></div>
+                <div class="data-row"><span class="data-label">NÜFUS KAYIT NO:</span> <span class="data-value">8765432109</span></div>
+                <div class="data-row"><span class="data-label">MEDENİ HÂL:</span> <span class="data-value">BEKAR</span></div>
+                <div class="data-row"><span class="data-label">EKRAN SIRASI:</span> <span class="data-value">1</span></div>
+                <div class="data-row"><span class="data-label">DİKKAT:</span> <span class="data-value" style="color:red">VERİ BAŞARIYLA ÇEKİLDİ</span></div>
+            `;
+            resultBox.innerHTML = veriler;
+        }, 1500);
+    }
+</script>
+
+</body>
+</html>
